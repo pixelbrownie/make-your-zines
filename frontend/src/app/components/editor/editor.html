@@ -1,28 +1,29 @@
 <div class="editor-container">
   <div class="editor-header">
-    <h1>{{ zineTitle }} <span *ngIf="isDirty" class="dirty-marker">*</span></h1>
+    <h1 class="bubbly-title">make your zine!</h1>
+    <p class="upload-prompt">click to upload image</p>
+    
     <div class="actions">
       <button class="btn-secondary" (click)="exportPDF()" [disabled]="isPrinting">
         {{ isPrinting ? 'Generating...' : 'Export PDF 🖨️' }}
       </button>
-      <button class="btn-primary" (click)="saveZine()">
-        Save Zine {{ isDirty ? '*' : '' }}
+      <button class="btn-create" (click)="createZine()">
+        Create Zine {{ isDirty ? '*' : '' }}
       </button>
     </div>
   </div>
-  <p>click to upload image</p>
-  
-  <div class="zine-grid" [class.print-mode]="isPrinting">
-    <div *ngFor="let page of pages; let i = index" 
-         class="grid-cell" 
-         [class.rotated]="page.rotated"
-         (click)="triggerUpload(i)">
-      
-      <div class="placeholder" *ngIf="!page.preview && !isPrinting">
-        {{ page.label }}
-      </div>
-      
-      <img *ngIf="page.preview" [src]="page.preview" alt="Page preview">
+
+  <div class="zine-grid" [class.folding]="isFolding">
+    <!-- Top Row (Inverted) -->
+    <div class="page-box inverted" *ngFor="let page of pages.slice(0, 4); let i = index" (click)="triggerUpload(i)">
+      <img *ngIf="page.preview" [src]="page.preview" alt="Page {{page.label}}">
+      <div class="page-label" *ngIf="!page.preview">{{ page.label }}</div>
+    </div>
+    
+    <!-- Bottom Row -->
+    <div class="page-box" *ngFor="let page of pages.slice(4); let i = index" (click)="triggerUpload(i + 4)">
+      <img *ngIf="page.preview" [src]="page.preview" alt="Page {{page.label}}">
+      <div class="page-label" *ngIf="!page.preview">{{ page.label }}</div>
     </div>
   </div>
 </div>

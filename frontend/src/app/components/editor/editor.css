@@ -1,161 +1,110 @@
 .editor-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 40px;
-  background-color: #FFF9E5;
+  padding: 40px 20px;
+  background-color: var(--bg-cream);
   min-height: 100vh;
-  font-family: 'Comic Sans MS', cursive, sans-serif;
-}
-
-.header-actions {
-  display: flex;
-  gap: 12px;
-}
-
-.btn-secondary {
-  background-color: white;
-  border: 2px solid #F3B0C3;
-  color: #F3B0C3;
-  padding: 10px 24px;
-  border-radius: 12px;
-  font-weight: bold;
-  cursor: pointer;
-  transition: all 0.2s;
-}
-
-.btn-secondary:hover:not(:disabled) {
-  background-color: #fff0f5;
-  transform: translateY(-2px);
-}
-
-.btn-secondary:disabled {
-  opacity: 0.5;
-  cursor: not-allowed;
+  text-align: center;
 }
 
 .editor-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  width: 100%;
-  max-width: 900px;
-  margin-bottom: 3rem;
-}
-
-h1 {
-  font-family: 'Outfit', sans-serif;
-  font-size: 2.8rem;
-  margin: 0;
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  letter-spacing: -1.5px;
-  color: var(--text-charcoal);
-}
-
-.dirty-marker {
-  color: #F3B0C3;
-  font-size: 1.5rem;
-}
-
-.btn-save {
-  background-color: #eee;
-  color: #999;
-  border: none;
-  padding: 10px 24px;
-  border-radius: 12px;
-  font-weight: bold;
-  cursor: not-allowed;
-  transition: all 0.2s;
-}
-
-.btn-save.active {
-  background-color: #F3B0C3;
-  color: white;
-  cursor: pointer;
-  box-shadow: 0 4px 10px rgba(243, 176, 195, 0.3);
-}
-
-.btn-save.active:hover {
-  background-color: #ef9db6;
-  transform: translateY(-2px);
-}
-
-p {
   margin-bottom: 2rem;
-  color: #666;
 }
 
+.bubbly-title {
+  font-family: 'Grandstander', cursive;
+  font-size: 3.5rem;
+  font-weight: 700;
+  color: var(--text-charcoal);
+  margin: 0;
+}
+
+.upload-prompt {
+  font-family: 'Indie Flower', cursive;
+  font-size: 1.2rem;
+  color: var(--text-muted);
+  margin-top: -10px;
+  margin-bottom: 2rem;
+}
+
+.actions {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin: 2rem 0;
+}
+
+/* 8-Page Grid Layout (4x2) */
 .zine-grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  grid-template-rows: repeat(2, 1fr);
-  gap: 16px;
-  background-color: #f0f0f0;
-  padding: 16px;
-  border-radius: 24px; /* Rounded corners from Phase 4 */
-  width: 100%;
-  max-width: 800px;
-  aspect-ratio: 4 / 3;
-}
-
-.zine-grid.print-mode {
-  box-shadow: none;
-  gap: 0;
-  border-radius: 0;
-  border: none;
+  grid-template-columns: repeat(4, 180px);
+  grid-template-rows: repeat(2, 250px);
+  gap: 0; /* Tight grid like a real sheet */
+  justify-content: center;
   background-color: white;
+  padding: 2px;
+  box-shadow: var(--shadow-soft);
+  margin: 0 auto;
+  border: 1px solid #ddd;
+  width: fit-content;
+  transition: transform 1s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.5s;
 }
 
-.zine-grid.print-mode .grid-cell {
-  border-radius: 0;
-  box-shadow: none;
-  border: 1px dashed #eee;
+/* Animation: Form a Book */
+.folding {
+  transform: perspective(2000px) rotateY(-80deg) scale(0.1);
+  opacity: 0;
 }
 
-.zine-grid.print-mode .grid-cell:hover,
-.zine-grid.print-mode .grid-cell.rotated:hover {
-  transform: none;
-}
-
-.zine-grid.print-mode .grid-cell.rotated {
-  transform: rotate(180deg);
-}
-
-.grid-cell {
-  background-color: white;
-  border-radius: 8px;
+.page-box {
+  border: 1px solid #eee;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   cursor: pointer;
-  overflow: hidden;
   position: relative;
-  transition: transform 0.2s ease;
-  border: 1px dashed #ccc;
+  overflow: hidden;
+  background-color: white;
 }
 
-.grid-cell:hover {
-  background-color: #f9f9f9;
-  transform: scale(1.02);
+.page-box:hover {
+  background-color: #fff9f9;
 }
 
-.grid-cell.rotated {
+.page-box img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* SMART CROP - Fixes stretching */
+}
+
+.page-label {
+  position: absolute;
+  font-family: 'Outfit', sans-serif;
+  font-weight: 700;
+  font-size: 1.5rem;
+  color: rgba(0,0,0,0.3);
+  pointer-events: none;
+}
+
+/* Top row is inverted for zine folding */
+.page-box.inverted {
   transform: rotate(180deg);
 }
 
-.grid-cell.rotated:hover {
-  transform: rotate(180deg) scale(1.02);
+.btn-create {
+  background-color: var(--primary-pink);
+  color: white;
+  padding: 12px 30px;
+  border-radius: 50px;
+  font-weight: 700;
+  font-family: 'Outfit', sans-serif;
+  box-shadow: 0 4px 15px rgba(243, 176, 195, 0.4);
 }
 
-.placeholder {
-  font-size: 1.5rem;
-  color: #ccc;
-}
-
-img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
+.btn-secondary {
+  padding: 12px 24px;
+  border-radius: 50px;
+  background-color: white;
+  border: 2px solid var(--primary-pink);
+  color: var(--primary-pink);
+  font-weight: 600;
 }

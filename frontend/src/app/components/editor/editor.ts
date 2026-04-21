@@ -29,6 +29,8 @@ export class EditorComponent implements OnInit {
     { id: 'page_cover', label: 'Cover', rotated: false, preview: null, file: null },
   ];
 
+  isFolding = false;
+
   constructor(
     private route: ActivatedRoute,
     private router: Router,
@@ -79,23 +81,27 @@ export class EditorComponent implements OnInit {
     fileInput.click();
   }
 
-  saveZine() {
-    if (this.zineSlug === 'new') {
-      // Logic for new zine (simplified for Phase 2)
-      this.zineService.createZine({ title: this.zineTitle }).subscribe(res => {
-        this.zineSlug = res.slug;
+  createZine() {
+    // Start folding animation
+    this.isFolding = true;
+    this.toastService.show('Creating your masterpiece... ✨', 'info');
+
+    // Wait for animation to finish before saving/navigating
+    setTimeout(() => {
+      if (this.zineSlug === 'new') {
+        this.zineService.createZine({ title: this.zineTitle }).subscribe(res => {
+          this.zineSlug = res.slug;
+          this.performSave();
+        });
+      } else {
         this.performSave();
-      });
-    } else {
-      this.performSave();
-    }
+      }
+    }, 1200); // Slightly longer than the 1s CSS transition
   }
 
   performSave() {
     if (!this.zineSlug) return;
     
-    // For batch save in Phase 2: we'll upload each dirty page
-    // (Improved in Phase 3 with better batching, but for now we iterate)
     const uploads = this.pages.filter(p => !!p.file);
     if (uploads.length === 0) {
       this.finishSave();
@@ -111,6 +117,7 @@ export class EditorComponent implements OnInit {
         },
         error: (err) => {
           this.toastService.show('Error saving page', 'error');
+          this.isFolding = false;
         }
       });
     });
@@ -118,27 +125,26 @@ export class EditorComponent implements OnInit {
 
   finishSave() {
     this.isDirty = false;
-    this.toastService.show('Zine saved successfully! ✨', 'success');
-    if (this.zineSlug) this.router.navigate(['/editor', this.zineSlug]);
+    this.toastService.show('Zine created successfully! ✨', 'success');
+    this.isFolding = false;
+    if (this.zineSlug) this.router.navigate(['/dashboard']);
   }
 
   async exportPDF() {
     this.isPrinting = true;
     this.toastService.show('Preparing your PDF... 🎨', 'info');
 
-    // Small delay to ensure UI updates (hiding placeholders if needed)
     await new Promise(resolve => setTimeout(resolve, 500));
 
     const gridElement = document.querySelector('.zine-grid') as HTMLElement;
     if (!gridElement) {
-      this.toastService.show('Could not find grid element', 'error');
       this.isPrinting = false;
       return;
     }
 
     try {
       const canvas = await html2canvas(gridElement, {
-        scale: 2, // High resolution
+        scale: 3, // Even higher resolution
         useCORS: true,
         backgroundColor: '#FFF9E5'
       });
@@ -153,24 +159,28 @@ export class EditorComponent implements OnInit {
       const pdfWidth = pdf.internal.pageSize.getWidth();
       const pdfHeight = pdf.internal.pageSize.getHeight();
       
-      // Calculate dimensions to fit exactly (A4 is 297x210)
-      // The grid is 4x2, so aspect ratio is 2:1 roughly.
-      // Padding of 10mm
-      const margin = 10;
-      const width = pdfWidth - (margin * 2);
-      const height = (canvas.height * width) / canvas.width;
+      // Fixed Centering & Scaling
+      const margin = 15;
+      const maxWidth = pdfWidth - (margin * 2);
+      const maxHeight = pdfHeight - (margin * 2);
+      
+      let width = maxWidth;
+      let height = (canvas.height * maxWidth) / canvas.width;
 
-      pdf.addImage(imgData, 'PNG', margin, margin, width, height);
+      if (height > maxHeight) {
+        height = maxHeight;
+        width = (canvas.width * maxHeight) / canvas.height;
+      }
 
-      // Add watermark
-      pdf.setFontSize(10);
-      pdf.setTextColor(243, 176, 195); // Pastel pink
-      pdf.text('Made with Zine-Maker ✨', pdfWidth - 45, pdfHeight - 10);
+      const x = (pdfWidth - width) / 2;
+      const y = (pdfHeight - height) / 2;
 
+      pdf.addImage(imgData, 'PNG', x, y, width, height);
+
+      // Watermark removed as requested
       pdf.save(`${this.zineTitle || 'zine'}.pdf`);
       this.toastService.show('PDF downloaded! Happy printing! 🖨️', 'success');
     } catch (err) {
-      console.error(err);
       this.toastService.show('Failed to generate PDF', 'error');
     } finally {
       this.isPrinting = false;

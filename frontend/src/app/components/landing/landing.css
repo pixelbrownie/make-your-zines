@@ -1,0 +1,119 @@
+.landing-container {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #FFF8E7;
+  text-align: center;
+  overflow: hidden;
+}
+
+.star-border {
+  position: absolute;
+  top: 0;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  z-index: 1;
+}
+
+.star-border.left {
+  left: 10px;
+}
+
+.star-border.right {
+  right: 10px;  
+}
+
+.star-icon {
+  width: 30px;
+  height: 30px;
+  opacity: 0.8;
+  animation: twinkle 2s ease-in-out infinite alternate;
+}
+
+.star-icon:nth-child(even) {
+  animation-delay: 0.5s;
+}
+
+.star-icon:nth-child(3n) {
+  animation-delay: 1s;
+}
+
+@keyframes twinkle {
+  0% { opacity: 0.4; transform: scale(0.9); }
+  100% { opacity: 1; transform: scale(1.1); }
+}
+
+.hero {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem;
+  margin-top: -2rem;
+}
+
+.hero-heading {
+  max-width: 600px;
+  width: 90%;
+  height: auto;
+  margin-bottom: 0;
+}
+
+.illustration-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.zine-icon {
+  width: 140px;
+  height: auto;
+  filter: drop-shadow(0 10px 15px rgba(0,0,0,0.1));
+  animation: float 3s ease-in-out infinite;
+}
+
+.zine-icon:nth-child(even) {
+  animation-delay: 0.5s;
+}
+
+.centered-large-zine {
+  width: 400px;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0) rotate(-2deg); }
+  50% { transform: translateY(-15px) rotate(2deg); }
+}
+
+.start-btn {
+  background: transparent;
+  padding: 0;
+  border: none;
+  cursor: pointer;
+  transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  display: block;
+  margin: -1rem auto 0 auto;
+}
+
+.start-btn img {
+  width: 200px;
+  height: auto;
+}
+
+.start-btn:hover {
+  transform: scale(1.1) rotate(2deg);
+}
+
+.start-btn:active {
+  transform: scale(0.95);
+}
