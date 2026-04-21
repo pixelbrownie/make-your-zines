@@ -10,25 +10,37 @@
   </div>
 
   <div *ngIf="!loading && zines.length === 0" class="empty-state">
-    <img src="https://api.dicebear.com/7.x/bottts/svg?seed=Empty" alt="Empty state illustration">
-    <h2>no zines yet!</h2>
-    <p>your library is looking a bit lonely. click '+' to start your first one!</p>
-    <button class="btn-secondary" routerLink="/editor/new">Make a Zine</button>
+    <div class="empty-book-stack">
+      <div class="empty-book"></div>
+      <div class="empty-book secondary"></div>
+    </div>
+    <h2>Your shelf is empty!</h2>
+    <p>Every great creator starts with a single page. Click the button above to begin your first zine.</p>
+    <button class="btn-primary" routerLink="/editor/new">Start My First Zine</button>
   </div>
 
   <div *ngIf="!loading && zines.length > 0" class="zine-grid">
     <div class="zine-card" *ngFor="let zine of zines">
-      <div class="zine-cover" [routerLink]="['/editor', zine.slug]">
-        <img [src]="zine.page_cover || 'https://placehold.co/200x300?text=No+Cover'" alt="Zine cover">
-        <div class="zine-overlay">
-          <span>Edit Zine</span>
+      <div class="book-container" [routerLink]="['/editor', zine.slug]">
+        <div class="book">
+          <div class="book-page">
+            <img [src]="zine.page1 || 'https://placehold.co/200x300?text=Page+1'" alt="Zine interior">
+          </div>
+          <div class="book-cover">
+            <img [src]="zine.page_cover || 'https://placehold.co/200x300?text=No+Cover'" alt="Zine cover">
+            <div class="zine-overlay">
+              <span>View Zine</span>
+            </div>
+          </div>
         </div>
       </div>
       
       <div class="zine-info">
         <h3>{{ zine.title }}</h3>
         <div class="privacy-control">
-          <span>{{ zine.is_public ? 'Public' : 'Private' }}</span>
+          <span class="privacy-status" [ngClass]="zine.is_public ? 'status-public' : 'status-private'">
+            {{ zine.is_public ? 'Public' : 'Private' }}
+          </span>
           <label class="switch">
             <input type="checkbox" [checked]="zine.is_public" (change)="togglePrivacy(zine)">
             <span class="slider round"></span>

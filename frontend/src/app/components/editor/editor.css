@@ -3,14 +3,83 @@
   flex-direction: column;
   align-items: center;
   padding: 40px;
-  background-color: #FFF9E5; /* Cream background from Phase 4 */
+  background-color: #FFF9E5;
   min-height: 100vh;
   font-family: 'Comic Sans MS', cursive, sans-serif;
 }
 
+.header-actions {
+  display: flex;
+  gap: 12px;
+}
+
+.btn-secondary {
+  background-color: white;
+  border: 2px solid #F3B0C3;
+  color: #F3B0C3;
+  padding: 10px 24px;
+  border-radius: 12px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.btn-secondary:hover:not(:disabled) {
+  background-color: #fff0f5;
+  transform: translateY(-2px);
+}
+
+.btn-secondary:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.editor-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  max-width: 900px;
+  margin-bottom: 3rem;
+}
+
 h1 {
-  font-size: 3rem;
-  margin-bottom: 0.5rem;
+  font-family: 'Outfit', sans-serif;
+  font-size: 2.8rem;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  letter-spacing: -1.5px;
+  color: var(--text-charcoal);
+}
+
+.dirty-marker {
+  color: #F3B0C3;
+  font-size: 1.5rem;
+}
+
+.btn-save {
+  background-color: #eee;
+  color: #999;
+  border: none;
+  padding: 10px 24px;
+  border-radius: 12px;
+  font-weight: bold;
+  cursor: not-allowed;
+  transition: all 0.2s;
+}
+
+.btn-save.active {
+  background-color: #F3B0C3;
+  color: white;
+  cursor: pointer;
+  box-shadow: 0 4px 10px rgba(243, 176, 195, 0.3);
+}
+
+.btn-save.active:hover {
+  background-color: #ef9db6;
+  transform: translateY(-2px);
 }
 
 p {
@@ -29,6 +98,29 @@ p {
   width: 100%;
   max-width: 800px;
   aspect-ratio: 4 / 3;
+}
+
+.zine-grid.print-mode {
+  box-shadow: none;
+  gap: 0;
+  border-radius: 0;
+  border: none;
+  background-color: white;
+}
+
+.zine-grid.print-mode .grid-cell {
+  border-radius: 0;
+  box-shadow: none;
+  border: 1px dashed #eee;
+}
+
+.zine-grid.print-mode .grid-cell:hover,
+.zine-grid.print-mode .grid-cell.rotated:hover {
+  transform: none;
+}
+
+.zine-grid.print-mode .grid-cell.rotated {
+  transform: rotate(180deg);
 }
 
 .grid-cell {

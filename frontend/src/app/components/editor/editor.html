@@ -1,14 +1,24 @@
 <div class="editor-container">
-  <h1>make your zine!</h1>
+  <div class="editor-header">
+    <h1>{{ zineTitle }} <span *ngIf="isDirty" class="dirty-marker">*</span></h1>
+    <div class="actions">
+      <button class="btn-secondary" (click)="exportPDF()" [disabled]="isPrinting">
+        {{ isPrinting ? 'Generating...' : 'Export PDF 🖨️' }}
+      </button>
+      <button class="btn-primary" (click)="saveZine()">
+        Save Zine {{ isDirty ? '*' : '' }}
+      </button>
+    </div>
+  </div>
   <p>click to upload image</p>
   
-  <div class="zine-grid">
+  <div class="zine-grid" [class.print-mode]="isPrinting">
     <div *ngFor="let page of pages; let i = index" 
          class="grid-cell" 
          [class.rotated]="page.rotated"
          (click)="triggerUpload(i)">
       
-      <div class="placeholder" *ngIf="!page.preview">
+      <div class="placeholder" *ngIf="!page.preview && !isPrinting">
         {{ page.label }}
       </div>
       

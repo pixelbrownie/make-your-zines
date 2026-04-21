@@ -1,1 +1,109 @@
-/* You can add global styles to this file, and also import other style files */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Outfit:wght@500;700&family=Grandstander:wght@400;700&family=Indie+Flower&display=swap');
+
+:root {
+  /* Colors */
+  --bg-cream: #FFF9E5;
+  --primary-pink: #F3B0C3;
+  --success-sage: #A8E6CF;
+  --secondary-lilac: #DCD6F7;
+  --text-charcoal: #333333;
+  --text-muted: #666666;
+  
+  /* Layout */
+  --border-width: 100px;
+}
+
+body {
+  margin: 0;
+  padding: 0 0; /* Removing padding to handle borders internally */
+  background-color: var(--bg-cream);
+  color: var(--text-charcoal);
+  font-family: 'Inter', sans-serif;
+}
+
+.star-border {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  width: var(--border-width);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  z-index: 1000;
+  pointer-events: none;
+  padding: 20px 0;
+}
+
+.star-border.left { left: 0; }
+.star-border.right { right: 0; }
+
+.star-icon {
+  width: 30px;
+  height: 30px;
+  background: url('/assets/star.svg') no-repeat center;
+  background-size: contain;
+  opacity: 0.8;
+}
+
+.star-icon:nth-child(even) {
+  transform: translateX(10px) rotate(15deg);
+}
+
+.star-icon:nth-child(odd) {
+  transform: translateX(-10px) rotate(-10deg);
+}
+
+.content-wrapper {
+  padding: 0 var(--border-width);
+  min-height: 100vh;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Outfit', sans-serif;
+  margin: 0;
+}
+
+/* Global Button Styles */
+button {
+  cursor: pointer;
+  transition: var(--transition-smooth), var(--transition-squish);
+  border: none;
+}
+
+button:active {
+  transform: scale(0.95);
+}
+
+.btn-primary {
+  background-color: var(--primary-pink);
+  color: white;
+  padding: 12px 24px;
+  border-radius: 12px;
+  font-weight: 600;
+  box-shadow: 0 4px 10px rgba(243, 176, 195, 0.3);
+}
+
+.btn-primary:hover {
+  background-color: #ef9db6;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 15px rgba(243, 176, 195, 0.4);
+}
+
+.btn-secondary {
+  background-color: white;
+  border: 2px solid var(--primary-pink);
+  color: var(--primary-pink);
+  padding: 10px 24px;
+  border-radius: 12px;
+  font-weight: 600;
+}
+
+.btn-secondary:hover {
+  background-color: #fff0f5;
+  transform: translateY(-2px);
+}
+
+/* Utility Classes */
+.pastel-lilac { background-color: var(--secondary-lilac); }
+.pastel-sage { background-color: var(--success-sage); }

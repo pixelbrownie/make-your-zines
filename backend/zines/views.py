@@ -4,6 +4,7 @@ from rest_framework.decorators import action
 from .models import Zine
 from .serializers import ZineSerializer
 from django.contrib.auth.models import User
+from django.db import models
 from rest_framework.permissions import AllowAny, IsAuthenticated
 
 class ZineViewSet(viewsets.ModelViewSet):

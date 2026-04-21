@@ -14,36 +14,36 @@
 
 .toast-content {
   background-color: white;
-  padding: 12px 24px;
-  border-radius: 24px;
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+  padding: 12px 28px;
+  border-radius: 20px;
+  box-shadow: var(--shadow-soft);
   display: flex;
   align-items: center;
   gap: 12px;
-  border: 2px solid transparent;
-  font-family: 'Comic Sans MS', cursive, sans-serif;
+  border: 1px solid transparent;
+  font-family: 'Inter', sans-serif;
+  color: var(--text-charcoal);
 }
 
 .success .toast-content {
-  border-color: #F3B0C3;
-  background-color: #fff0f5;
+  border-color: var(--success-sage);
+  background-color: #f7fffc;
 }
 
 .error .toast-content {
   border-color: #ff6b6b;
-  background-color: #fff0f0;
+  background-color: #fffafa;
 }
 
 .info .toast-content {
-  border-color: #4da3ff;
-  background-color: #f0f7ff;
+  border-color: var(--secondary-lilac);
+  background-color: #fcfbff;
 }
 
 .icon {
-  font-size: 1.2rem;
+  font-size: 1.3rem;
 }
 
 .message {
-  font-weight: bold;
-  color: #333;
+  font-weight: 600;
 }
