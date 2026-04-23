@@ -1,6 +1,6 @@
-# pixelbrownie Zines ✦
+# ✦ ZINLy ✦
 
-> Design, fold, and share 8-page mini zines — digitally.
+> Design, fold, and share 8-page mini zines digitally.
 
 A full-stack Angular + Django application that lets users create zines from a 4×2 grid, watch them "fold" into a 3D book via animation, and share them with a community feed.
 
