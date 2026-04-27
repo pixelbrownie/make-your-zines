@@ -1,4 +1,4 @@
-# ✦ ZINLy ✦
+# ✦ ZIINLY ✦
 
 > Design, fold, and share 8-page mini zines digitally.
 
