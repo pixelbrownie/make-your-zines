@@ -9,7 +9,7 @@ GREEN='\033[32m'
 RESET='\033[0m'
 
 echo ""
-echo -e "${PINK}${BOLD}✦ pixelbrownie Zines — Starting up...${RESET}"
+echo -e "${PINK}${BOLD}✦ ZIINLY — Starting up...${RESET}"
 echo ""
 
 # ── Backend ──────────────────────────────────────────────

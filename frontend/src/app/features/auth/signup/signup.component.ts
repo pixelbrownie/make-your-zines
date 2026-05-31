@@ -14,7 +14,7 @@ import { ToastService } from '../../../core/services/toast.service';
       <div class="auth-card card">
         <div class="auth-header">
           <div class="auth-logo">✦</div>
-          <h1>Join pixelbrownie!</h1>
+          <h1>Join ziinly!</h1>
           <p>Start making your zine collection</p>
         </div>
 
@@ -170,7 +170,7 @@ export class SignupComponent {
     this.loading.set(true);
     this.auth.register(this.form.value as any).subscribe({
       next: () => {
-        this.toast.show('Welcome to pixelbrownie! ✦', 'success');
+        this.toast.show('Welcome to ziinly! ✦', 'success');
         this.router.navigate(['/dashboard']);
       },
       error: (err) => {
