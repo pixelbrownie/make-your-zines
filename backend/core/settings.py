@@ -114,11 +114,10 @@ SIMPLE_JWT = {
     'ROTATE_REFRESH_TOKENS': True,
 }
 
-# CORS
 CORS_ALLOWED_ORIGINS = [
-    'http://localhost:4200',
-    'http://127.0.0.1:4200',
-]
+    'https://ziinly.vercel.app',
+    'https://make-your-zines.onrender.com',
+]   
 
 CORS_ALLOW_CREDENTIALS = True
 

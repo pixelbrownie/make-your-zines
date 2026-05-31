@@ -22,16 +22,25 @@ import { ToastService } from '../../../core/services/toast.service';
           <div class="field">
             <label>Username</label>
             <input class="input" formControlName="username" placeholder="cool_username" autocomplete="username" />
+            <span class="field-error" *ngIf="form.get('username')?.invalid && form.get('username')?.touched">
+              Username must be at least 3 characters
+            </span>
           </div>
 
           <div class="field">
             <label>Email</label>
             <input class="input" type="email" formControlName="email" placeholder="you@example.com" autocomplete="email" />
+            <span class="field-error" *ngIf="form.get('email')?.invalid && form.get('email')?.touched">
+              Please enter a valid email address
+            </span>
           </div>
 
           <div class="field">
             <label>Password</label>
             <input class="input" type="password" formControlName="password" placeholder="min. 6 characters" autocomplete="new-password" />
+            <span class="field-error" *ngIf="form.get('password')?.invalid && form.get('password')?.touched">
+              Password must be at least 6 characters
+            </span>
           </div>
 
           <div class="field">

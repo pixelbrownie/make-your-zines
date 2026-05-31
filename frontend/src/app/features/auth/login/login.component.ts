@@ -22,11 +22,17 @@ import { ToastService } from '../../../core/services/toast.service';
           <div class="field">
             <label>Username</label>
             <input class="input" formControlName="username" placeholder="your_username" autocomplete="username" />
+            <span class="field-error" *ngIf="form.get('username')?.invalid && form.get('username')?.touched">
+              Username is required
+            </span>
           </div>
 
           <div class="field">
             <label>Password</label>
             <input class="input" type="password" formControlName="password" placeholder="••••••••" autocomplete="current-password" />
+            <span class="field-error" *ngIf="form.get('password')?.invalid && form.get('password')?.touched">
+              Password is required
+            </span>
           </div>
 
           <button type="submit" class="btn btn-primary submit-btn" [disabled]="loading()">
