@@ -117,6 +117,7 @@ SIMPLE_JWT = {
 CORS_ALLOWED_ORIGINS = [
     'https://ziinly.vercel.app',
     'https://make-your-zines.onrender.com',
+    'http://localhost:4200',
 ]   
 
 CORS_ALLOW_CREDENTIALS = True

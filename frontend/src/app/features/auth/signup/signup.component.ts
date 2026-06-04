@@ -158,8 +158,9 @@ export class SignupComponent {
   ) {}
 
   passwordMatchValidator(g: any) {
-    return g.get('password').value === g.get('password2').value
-      ? null : { mismatch: true };
+    const password = g.get('password')?.value;
+    const password2 = g.get('password2')?.value;
+    return password === password2 ? null : { mismatch: true };
   }
 
   submit() {
