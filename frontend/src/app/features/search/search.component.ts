@@ -2,7 +2,7 @@ import { Component, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
-import { debounceTime, distinctUntilChanged, Subject, switchMap, of } from 'rxjs';
+import { debounceTime, distinctUntilChanged, Subject, switchMap, of, catchError } from 'rxjs';
 import { UserService } from '../../core/services/user.service';
 import { AuthService, User } from '../../core/services/auth.service';
 
@@ -159,19 +159,25 @@ export class SearchComponent {
       debounceTime(300),
       distinctUntilChanged(),
       switchMap((q) => {
-        if (!q.trim()) return of([]);
+        if (!q.trim()) {
+          this.loading.set(false);
+          this.results.set([]);
+          return of(null);
+        }
         this.loading.set(true);
-        return this.userService.searchUsers(q.trim());
-      }),
-    ).subscribe({
-      next: (users) => {
+        return this.userService.searchUsers(q.trim()).pipe(
+          catchError(() => {
+            this.results.set([]);
+            this.loading.set(false);
+            return of(null);
+          })
+        );
+      })
+    ).subscribe((users) => {
+      if (users !== null) {
         this.results.set(users);
         this.loading.set(false);
-      },
-      error: () => {
-        this.results.set([]);
-        this.loading.set(false);
-      },
+      }
     });
   }
 
